@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demon Monk Simulation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+
+    <!-- ================= SCREEN SWITCH ================= -->
+
+    {% if screen == "welcome" %}
+
+    <!-- ===== WELCOME ===== -->
+    <div class="fade-in">
+        <h2>Welcome to</h2>
+        <h1 class="neon-title">Demon Monk Simulation</h1>
+        <p>Can you safely move everyone across the river?</p>
+
+        <form method="POST">
+            <button name="action" value="start_game">Start Game</button>
+        </form>
+    </div>
+
+
+    {% elif screen == "instructions" %}
+
+    <!-- ===== INSTRUCTIONS ===== -->
+    <div class="fade-in">
+        <h1 class="neon-title">Demon Monk Simulation</h1>
+
+        <h2 class="instructions-title">Game Instructions</h2>
+        <ul class="instructions">
+            <li>3 Monks and 3 Demons start on the left bank.</li>
+            <li>The boat carries at most 2 characters.</li>
+            <li>Demons must never outnumber Monks.</li>
+            <li>Move everyone safely to the right bank.</li>
+        </ul>
+
+        <form method="POST">
+            <button name="action" value="next_instructions">Next</button>
+        </form>
+    </div>
+
+
+    {% elif screen == "game" %}
+
+    <!-- ===== GAME ===== -->
+
+    <h1 class="neon-title">Demon Monk Simulation</h1>
+    <p>User Moves: {{ user_moves }}</p>
+
+    {% if state %}
+
+    {% set monks_left = state[0] %}
+    {% set demons_left = state[1] %}
+    {% set monks_right = 3 - monks_left %}
+    {% set demons_right = 3 - demons_left %}
+
+    <div class="banks">
+
+        <!-- Left Bank -->
+        <div class="bank">
+            <h3>Left Bank</h3>
+
+            <div class="icons">
+                {% for i in range(monks_left) %} 🧘 {% endfor %}
+            </div>
+
+            <div class="icons">
+                {% for i in range(demons_left) %} 👹 {% endfor %}
+            </div>
+
+            {% if state[2] == 0 %}
+            <p class="boat">🚤 Boat</p>
+            {% endif %}
+        </div>
+
+        <div class="river">~~~~~</div>
+
+        <!-- Right Bank -->
+        <div class="bank">
+            <h3>Right Bank</h3>
+
+            <div class="icons">
+                {% for i in range(monks_right) %} 🧘 {% endfor %}
+            </div>
+
+            <div class="icons">
+                {% for i in range(demons_right) %} 👹 {% endfor %}
+            </div>
+
+            {% if state[2] == 1 %}
+            <p class="boat">🚤 Boat</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+    <!-- ===== WARNINGS ===== -->
+    {% if error %}
+    <div class="error-box">
+        ❗ {{ error }}
+    </div>
+    {% endif %}
+
+    {% if stuck %}
+    <div class="stuck-box">
+        🚫 No safe moves available. Try using Hint!
+    </div>
+    {% endif %}
+
+
+    <!-- ===== CONTROLS ===== -->
+    {% if not goal_reached %}
+    <h3>Make a Move</h3>
+
+    <div class="controls">
+
+        <form method="POST">
+            <input type="hidden" name="move_type" value="1M">
+            <button name="action" value="move">1 Monk</button>
+        </form>
+
+        <form method="POST">
+            <input type="hidden" name="move_type" value="2M">
+            <button name="action" value="move">2 Monks</button>
+        </form>
+
+        <form method="POST">
+            <input type="hidden" name="move_type" value="1D">
+            <button name="action" value="move">1 Demon</button>
+        </form>
+
+        <form method="POST">
+            <input type="hidden" name="move_type" value="2D">
+            <button name="action" value="move">2 Demons</button>
+        </form>
+
+        <form method="POST">
+            <input type="hidden" name="move_type" value="1M1D">
+            <button name="action" value="move">1 Monk + 1 Demon</button>
+        </form>
+
+        <form method="POST">
+            <button name="action" value="hint">💡 Hint</button>
+        </form>
+
+    </div>
+    {% endif %}
+
+
+    <!-- ===== HINT ===== -->
+    {% if hint %}
+    <div class="hint-box">
+        💡 {{ hint }}
+    </div>
+    {% endif %}
+
+
+    <!-- ===== GOAL ===== -->
+    {% if goal_reached %}
+    <div class="goal-box">
+        <h2>🎉 Goal Reached!</h2>
+        <p>Your Moves: {{ user_moves }}</p>
+        <p>Optimal Moves: {{ distance }}</p>
+
+        {% if optimal %}
+        <div class="optimal-box">
+            ⭐ Perfect! You solved optimally!
+        </div>
+        {% endif %}
+    </div>
+
+    <form method="POST">
+        <button name="action" value="restart">Play Again</button>
+    </form>
+    {% endif %}
+
+    {% endif %}
+    {% endif %}
+
+</div>
+
+
+<!-- ===== CONFETTI ===== -->
+{% if confetti %}
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+confetti({
+    particleCount: 150,
+    spread: 100,
+    origin: { y: 0.6 }
+});
+</script>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+/* ================= BODY ================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    /* Full screen gradient */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #5f2c82, #ffd452);
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+
+
+/* ================= MAIN CARD ================= */
+
+.container {
+    width: 720px;
+    max-width: 92%;
+    padding: 35px;
+    border-radius: 16px;
+
+    background: linear-gradient(135deg, #6a1b9a, #7b1fa2);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+
+    text-align: center;
+    color: white;
+}
+
+
+
+
+/* ================= TITLES ================= */
+.neon-title {
+    color: #ffd452;
+    text-shadow:
+        0 0 10px #ffd452,
+        0 0 20px #ffd452,
+        0 0 40px #ffef9a;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #ffd452;
+}
+
+h2 {
+    color: #39ff14;
+}
+
+.instructions-title {
+    color: #39ff14;
+    text-shadow:
+        0 0 8px #39ff14,
+        0 0 16px #39ff14;
+}
+
+
+/* ================= INSTRUCTIONS ================= */
+.instructions {
+    color: white;
+    text-align: start;
+    width: 80%;
+    margin: 20px auto;
+    line-height: 2.5;
+    font-size: 15px;
+}
+
+/* ================= BUTTONS ================= */
+button {
+    padding: 12px 26px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffd452;
+    color: #5f2c82;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.25s;
+}
+
+button:hover {
+    background-color: #ffca2c;
+    transform: scale(1.07);
+    box-shadow: 0 0 10px #ffd452;
+}
+
+
+/* ================= GAME LAYOUT ================= */
+.banks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 35px;
+    gap: 10px;
+}
+
+.bank {
+    width: 30%;
+    background: #f3e5f5;
+    padding: 18px;
+    border-radius: 12px;
+    color: #5f2c82;
+    font-weight: bold;
+}
+
+.river {
+    width: 30%;
+    font-size: 20px;
+    color: #ffd452;
+}
+
+.icons {
+    font-size: 30px;
+    margin: 8px 0;
+}
+
+.boat {
+    margin-top: 6px;
+    color: #5f2c82;
+}
+
+
+/* ================= MOVE PANEL ================= */
+.controls {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.controls button {
+    min-width: 140px;
+}
+
+
+/* ================= MESSAGE BOXES ================= */
+
+/* Hint */
+.hint-box {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 212, 82, 0.15);
+    border: 1px solid #ffd452;
+    color: #ffd452;
+    font-weight: bold;
+}
+
+/* Error */
+.error-box {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 80, 80, 0.15);
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    font-weight: bold;
+    animation: shake 0.3s;
+}
+
+/* Stuck */
+.stuck-box {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 120, 0, 0.15);
+    border: 1px solid #ff9800;
+    color: #ffb74d;
+    font-weight: bold;
+}
+
+
+/* ================= GOAL SCREEN ================= */
+.goal-box {
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 12px;
+    background: rgba(57, 255, 20, 0.15);
+    border: 1px solid #39ff14;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+.goal-box h2 {
+    color: #39ff14;
+    text-shadow: 0 0 10px #39ff14;
+}
+
+
+/* Optimal badge */
+.optimal-box {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 212, 82, 0.15);
+    border: 1px solid #ffd452;
+    color: #ffd452;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 0 0 8px #ffd452;
+}
+
+
+/* ================= ANIMATIONS ================= */
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
+
+/* ================= MOBILE FRIENDLY ================= */
+@media (max-width: 600px) {
+    .banks {
+        flex-direction: column;
+    }
+
+    .bank, .river {
+        width: 100%;
+    }
+}
